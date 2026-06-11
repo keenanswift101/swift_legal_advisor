@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0a1628;
+  color: #e8edf5;
+  margin: 0;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0a1628;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e3a6e;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a4f8e;
+}
+
+/* ── Prose overrides for dark theme ─────────────────────────────────────────── */
+.prose :where(h1, h2, h3, h4, h5):not(:where([class~='not-prose'] *)) {
+  color: #d4af37;
+  font-family: Georgia, 'Times New Roman', serif;
+  margin-top: 1.25em;
+  margin-bottom: 0.4em;
+}
+
+.prose :where(blockquote):not(:where([class~='not-prose'] *)) {
+  border-left-color: rgba(201, 162, 39, 0.5);
+  color: #8fa3c8;
+  font-style: italic;
+}
+
+.prose :where(table):not(:where([class~='not-prose'] *)) {
+  font-size: 0.85em;
+}
+
+.prose :where(th):not(:where([class~='not-prose'] *)) {
+  color: #d4af37;
+  border-bottom-color: #1e3a6e;
+}
+
+.prose :where(td):not(:where([class~='not-prose'] *)) {
+  border-bottom-color: #152a5a;
+}
+
+.prose :where(hr):not(:where([class~='not-prose'] *)) {
+  border-color: #1e3a6e;
+}
+
+.prose :where(strong):not(:where([class~='not-prose'] *)) {
+  color: #e8edf5;
+  font-weight: 600;
+}
+
+.prose :where(code):not(:where([class~='not-prose'] *)) {
+  color: #e0c060;
+  background: rgba(10, 22, 40, 0.8);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.prose :where(a):not(:where([class~='not-prose'] *)) {
+  color: #d4af37;
+  text-decoration-color: rgba(212, 175, 55, 0.4);
+}
+
+/* ── Cursor blink for streaming ─────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.streaming-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #d4af37;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+}

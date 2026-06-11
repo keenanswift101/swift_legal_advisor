@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.log
+
+# Secrets
+.env
+*.env.local
+*.env.*.local
+
+# Data / models (too large for git)
+backend/chroma_db/
+backend/data/raw/*.pdf
+backend/data/raw/*.PDF
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
