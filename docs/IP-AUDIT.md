@@ -1,6 +1,8 @@
 # IP-AUDIT.md — Intellectual property audit: Swifty
 
-Audit date: 12 June 2026 · Owner: Keenan Husselmann · Status: pre-launch
+Audit date: 12 June 2026 · Owning entity: **Swift Designz Investments CC**
+(BIPA-registered; founder Keenan Husselmann — IP assignment to CC pending,
+see docs/BIPA-BRIEF.md) · Status: pre-launch
 **This is an internal working document, not legal advice. Validate with an IP
 practitioner before registration or investment events.**
 
@@ -65,11 +67,15 @@ practitioner before registration or investment events.**
 ## 4. Action plan (ordered)
 
 1. **BIPA trademark search + application** for "Swifty" (word) and the lockup
-   (device), classes 9/42/45 — also register the business name
-2. **Register domains**: swifty.legal, swifty.com.na
-3. **Verify NamibLII terms** and the case-digest provenance (§2 content risks)
-4. Add `LICENSE` (proprietary, all rights reserved) + `THIRD-PARTY-NOTICES`
-5. Copyright notice in app footer and guide pages: `© 2026 Swifty`
-6. Contributor IP-assignment template before any collaborator
-7. At funding/partnership stage: formal IP assignment from founder to the
-   operating company (incorporate at BIPA first)
+   (device), classes 9/42/45, **applicant: Swift Designz Investments CC** —
+   consultant instruction drafted in docs/BIPA-BRIEF.md
+2. **IP assignment** founder → Swift Designz Investments CC (code, brand,
+   content) — must precede/accompany the trademark filing
+3. **CC founding statement** check: principal business must cover software /
+   IT services; amend at BIPA if needed
+4. **Register domains** in the CC's name: swifty.legal, swifty.com.na
+5. **Verify NamibLII terms** and the case-digest provenance (§2 content risks)
+6. Add `LICENSE` (proprietary, all rights reserved) + `THIRD-PARTY-NOTICES`
+7. Copyright notice in app footer and guide pages:
+   `© 2026 Swift Designz Investments CC`
+8. Contributor IP-assignment template before any collaborator
