@@ -1,7 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { GUIDES, getGuide } from '../data/guides'
 import { INTAKE_CATEGORIES } from '../data/intake'
+import { useI18n } from '../i18n'
 import { ArrowLeftIcon, ScaleIcon, XIcon, ChevronRightIcon } from './icons'
 
 interface GuidePageProps {
@@ -17,7 +17,8 @@ interface GuidePageProps {
  * opened from anywhere without losing chat state.
  */
 export function GuidePage({ selected, onSelect, onClose }: GuidePageProps) {
-  const guide = selected ? getGuide(selected) : undefined
+  const { t, guides } = useI18n()
+  const guide = selected ? guides.find((g) => g.id === selected) : undefined
 
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto animate-fade-in">
@@ -30,17 +31,17 @@ export function GuidePage({ selected, onSelect, onClose }: GuidePageProps) {
               className="flex items-center gap-1.5 text-xs font-medium text-legal-muted hover:text-legal-text transition-colors px-2 py-1.5 -ml-2 rounded-lg hover:bg-navy-800"
             >
               <ArrowLeftIcon className="w-3.5 h-3.5" />
-              All guides
+              {t('guides.all')}
             </button>
           ) : (
             <div className="flex items-center gap-2 text-sm font-serif font-bold">
               <ScaleIcon className="w-4 h-4 text-gold-400" />
-              Legal Info Library
+              {t('guides.library')}
             </div>
           )}
           <button
             onClick={onClose}
-            title="Close"
+            title={t('guides.close')}
             className="text-legal-muted hover:text-legal-text transition-colors p-1.5 -mr-1 rounded-lg hover:bg-navy-800"
           >
             <XIcon className="w-4 h-4" />
@@ -52,7 +53,7 @@ export function GuidePage({ selected, onSelect, onClose }: GuidePageProps) {
         {guide ? (
           <article className="animate-slide-up">
             <p className="text-[11px] uppercase tracking-widest text-legal-muted mb-2">
-              Free legal information · Namibia
+              {t('guides.tagline')}
             </p>
             <h1 className="font-serif text-3xl font-bold text-legal-text mb-6">
               {guide.title}
@@ -71,25 +72,20 @@ export function GuidePage({ selected, onSelect, onClose }: GuidePageProps) {
 
             <div className="mt-10 bg-navy-900 border border-navy-700 rounded-xl px-5 py-4">
               <p className="text-legal-muted text-xs leading-relaxed">
-                This page gives general legal information for Namibia, not formal
-                legal advice. Laws change and every situation is different — for
-                advice on your specific case, ask Swifty or consult a legal
-                practitioner.
+                {t('guides.disclaimer')}
               </p>
             </div>
           </article>
         ) : (
           <div className="animate-slide-up">
             <h1 className="font-serif text-3xl font-bold text-legal-text mb-2">
-              Legal Info Library
+              {t('guides.library')}
             </h1>
             <p className="text-legal-muted text-sm mb-8 leading-relaxed max-w-xl">
-              Free, plain-language guides to common legal problems in Namibia —
-              drawn from the Constitution, Acts of Parliament and the courts.
-              Always available, even when the assistant is busy.
+              {t('guides.librarySub')}
             </p>
             <div className="grid sm:grid-cols-2 gap-2.5">
-              {GUIDES.map((g) => {
+              {guides.map((g) => {
                 const cat = INTAKE_CATEGORIES.find((c) => c.id === g.id)
                 const Icon = cat?.icon ?? ScaleIcon
                 return (

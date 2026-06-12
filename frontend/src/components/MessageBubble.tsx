@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import type { Message } from '../types'
+import { useI18n } from '../i18n'
 import { AgentActivity } from './AgentActivity'
 import { ScaleIcon } from './icons'
 
@@ -10,18 +11,6 @@ interface MessageBubbleProps {
   /** Guide id to suggest when this message is an error (null = library) */
   errorGuideId?: string | null
   onOpenGuide?: (id: string) => void
-}
-
-const DOMAIN_LABELS: Record<string, string> = {
-  constitutional: 'Constitutional Law',
-  corporate: 'Corporate Law',
-  labour: 'Labour Law',
-  tax: 'Tax Law',
-  banking: 'Banking & Finance',
-  criminal: 'Criminal Law',
-  family: 'Family Law',
-  property: 'Property Law',
-  general: 'General Law',
 }
 
 const DOMAIN_COLORS: Record<string, string> = {
@@ -42,6 +31,7 @@ export function MessageBubble({
   errorGuideId,
   onOpenGuide,
 }: MessageBubbleProps) {
+  const { t } = useI18n()
   const isUser = message.role === 'user'
 
   if (isUser) {
@@ -73,7 +63,7 @@ export function MessageBubble({
               DOMAIN_COLORS[message.legal_domain] ?? DOMAIN_COLORS.general
             }`}
           >
-            {DOMAIN_LABELS[message.legal_domain] ?? message.legal_domain}
+            {t(`domain.${message.legal_domain}`)}
           </span>
         )}
 
@@ -108,7 +98,7 @@ export function MessageBubble({
               className="mt-3 flex items-center gap-2 text-xs font-semibold text-legal-text bg-navy-900 hover:bg-navy-700 border border-navy-600 hover:border-gold-500/50 px-4 py-2.5 rounded-xl transition-all"
             >
               <span className="font-serif text-gold-500">§</span>
-              In the meantime, read our free guide on this topic
+              {t('chat.errorGuideLink')}
             </button>
           )}
         </div>
@@ -123,8 +113,10 @@ export function MessageBubble({
               <span className="w-5 h-5 rounded bg-gold-500/15 group-hover:bg-gold-500/25 flex items-center justify-center text-xs transition-colors">
                 §
               </span>
-              {message.citations.length} citation
-              {message.citations.length !== 1 ? 's' : ''} — view sources
+              {t('chat.citations', {
+                n: message.citations.length,
+                s: message.citations.length !== 1 ? 's' : '',
+              })}
             </button>
           ) : (
             <span />

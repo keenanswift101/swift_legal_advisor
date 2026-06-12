@@ -99,6 +99,7 @@ export function useChat(): UseChatReturn {
             message: text,
             session_id: state.sessionId ?? undefined,
             history,
+            language: localStorage.getItem('swifty-lang') ?? 'en',
           },
           // onToken
           (token) => {

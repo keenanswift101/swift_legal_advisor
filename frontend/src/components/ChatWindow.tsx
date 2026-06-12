@@ -5,10 +5,10 @@ import {
   useState,
 } from 'react'
 import { useChatContext } from '../context/ChatContext'
+import { useI18n } from '../i18n'
 import { CitationPanel } from './CitationPanel'
 import { IntakeWizard } from './IntakeWizard'
 import { MessageBubble } from './MessageBubble'
-import { INTAKE_CATEGORIES } from '../data/intake'
 import { DOMAIN_TO_GUIDE } from '../data/guides'
 import {
   ArrowLeftIcon,
@@ -26,6 +26,7 @@ interface ChatWindowProps {
 export function ChatWindow({ onOpenGuide }: ChatWindowProps) {
   const { messages, isLoading, error, sendMessage, stopGeneration, clearChat } =
     useChatContext()
+  const { t } = useI18n()
 
   const [selectedMsg, setSelectedMsg] = useState<Message | null>(null)
   const [wizardCategory, setWizardCategory] = useState<string | null>(null)
@@ -104,7 +105,7 @@ export function ChatWindow({ onOpenGuide }: ChatWindowProps) {
                       className="flex items-center gap-2 text-xs font-semibold text-legal-text bg-navy-800 hover:bg-navy-700 border border-navy-700 hover:border-gold-500/50 px-4 py-2.5 rounded-xl transition-all"
                     >
                       <ArrowLeftIcon className="w-3.5 h-3.5" />
-                      Start a new case
+                      {t('chat.startNewCase')}
                     </button>
                   </div>
                 )}
@@ -143,6 +144,7 @@ interface ChatInputBarProps {
 }
 
 function ChatInputBar({ isLoading, onSend, onStop, shifted }: ChatInputBarProps) {
+  const { t } = useI18n()
   const [input, setInput] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -181,7 +183,7 @@ function ChatInputBar({ isLoading, onSend, onStop, shifted }: ChatInputBarProps)
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            placeholder="Describe your legal situation or ask a question…"
+            placeholder={t('chat.placeholder')}
             rows={1}
             disabled={isLoading}
             className="flex-1 bg-transparent text-legal-text text-sm resize-none outline-none placeholder-legal-muted/70 leading-relaxed"
@@ -190,7 +192,7 @@ function ChatInputBar({ isLoading, onSend, onStop, shifted }: ChatInputBarProps)
           {isLoading ? (
             <button
               onClick={onStop}
-              title="Stop generation"
+              title={t('chat.stop')}
               className="w-9 h-9 flex-shrink-0 rounded-xl bg-navy-600 hover:bg-navy-500 flex items-center justify-center text-legal-text transition-colors"
             >
               <StopIcon className="w-4 h-4" />
@@ -199,7 +201,7 @@ function ChatInputBar({ isLoading, onSend, onStop, shifted }: ChatInputBarProps)
             <button
               onClick={handleSend}
               disabled={!input.trim()}
-              title="Send (Enter)"
+              title={t('chat.send')}
               className="w-9 h-9 flex-shrink-0 rounded-xl bg-gold-400 hover:bg-gold-300 disabled:bg-navy-700 disabled:text-navy-500 disabled:cursor-not-allowed flex items-center justify-center text-navy-950 transition-colors"
             >
               <SendIcon className="w-4 h-4" />
@@ -208,7 +210,7 @@ function ChatInputBar({ isLoading, onSend, onStop, shifted }: ChatInputBarProps)
         </div>
 
         <p className="text-legal-muted text-[11px] text-center mt-2">
-          Enter to send · Shift+Enter for new line · Swifty provides general information only, not formal legal advice.
+          {t('chat.disclaimer')}
         </p>
       </div>
     </div>
@@ -224,6 +226,7 @@ function WelcomeScreen({
   onPickCategory: (categoryId: string | null) => void
   onOpenGuides: () => void
 }) {
+  const { t, categories } = useI18n()
   return (
     <div className="flex flex-col items-center pt-10 pb-6 px-2 animate-slide-up">
       {/* Brand mark */}
@@ -232,17 +235,15 @@ function WelcomeScreen({
       </div>
 
       <h2 className="text-legal-text font-serif text-3xl font-bold mb-2 text-center">
-        Legal help, step by step
+        {t('welcome.title')}
       </h2>
       <p className="text-legal-muted text-sm text-center max-w-md mb-8 leading-relaxed">
-        Pick your situation below and Swifty will ask a few quick questions to
-        understand your case — then explain your rights and next steps under
-        Namibian law, in plain language.
+        {t('welcome.sub')}
       </p>
 
       {/* Category cards */}
       <div className="w-full max-w-2xl grid sm:grid-cols-2 gap-2.5 mb-6">
-        {INTAKE_CATEGORIES.map((cat) => {
+        {categories.map((cat) => {
           const Icon = cat.icon
           return (
             <button
@@ -267,25 +268,22 @@ function WelcomeScreen({
         })}
       </div>
 
-      <p className="text-legal-muted text-xs mb-3">
-        Or just type your situation in the box below — Swifty understands plain
-        language.
-      </p>
+      <p className="text-legal-muted text-xs mb-3">{t('welcome.orType')}</p>
 
       <button
         onClick={onOpenGuides}
-        className="text-xs font-semibold text-legal-text underline underline-offset-4 decoration-navy-500 hover:decoration-gold-400 transition-colors mb-8"
+        className="text-xs font-semibold text-legal-text underline underline-offset-4 decoration-navy-500 hover:decoration-gold-400 transition-colors mb-8 cursor-pointer"
       >
-        Browse the free Legal Info Library
+        {t('welcome.browseGuides')}
       </button>
 
       {/* Trust strip */}
       <div className="flex gap-2 text-[11px] text-legal-muted flex-wrap justify-center">
         {[
-          'Private — no account needed',
-          'Based on Namibian law',
-          'Sources cited in every answer',
-          'Free to use',
+          t('welcome.trust.1'),
+          t('welcome.trust.2'),
+          t('welcome.trust.3'),
+          t('welcome.trust.4'),
         ].map((item) => (
           <span
             key={item}

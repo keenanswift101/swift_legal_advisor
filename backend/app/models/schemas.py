@@ -6,6 +6,8 @@ class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
     history: list[dict] = []
+    # UI language code; the agent answers in this language ('en', 'af', …)
+    language: Optional[str] = None
 
 
 class Citation(BaseModel):

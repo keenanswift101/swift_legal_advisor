@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { LanguageProvider } from './i18n'
 import { ChatProvider } from './context/ChatContext'
 import { DraftingProvider } from './context/DraftingContext'
 import { Header } from './components/Header'
@@ -15,6 +16,7 @@ export default function App() {
   const [guide, setGuide] = useState<string | null>(null)
 
   return (
+    <LanguageProvider>
     <ChatProvider>
       <DraftingProvider>
         {mode === 'landing' ? (
@@ -45,5 +47,6 @@ export default function App() {
         )}
       </DraftingProvider>
     </ChatProvider>
+    </LanguageProvider>
   )
 }

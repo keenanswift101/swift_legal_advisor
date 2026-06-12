@@ -1,11 +1,11 @@
 import { useMemo, useRef, useState } from 'react'
 import {
-  INTAKE_CATEGORIES,
   composeIntakeMessage,
   getCategory,
   type IntakeCategory,
   type IntakeQuestion,
 } from '../data/intake'
+import { useI18n } from '../i18n'
 import {
   ArrowLeftIcon,
   CheckIcon,
@@ -33,6 +33,7 @@ export function IntakeWizard({
   onSubmit,
   onCancel,
 }: IntakeWizardProps) {
+  const { t, categories } = useI18n()
   const [categoryId, setCategoryId] = useState<string | null>(
     initialCategoryId ?? null,
   )
@@ -42,7 +43,10 @@ export function IntakeWizard({
   const [stepIndex, setStepIndex] = useState(initialCategoryId ? 1 : 0)
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const category = categoryId ? getCategory(categoryId) : undefined
+  // Localized category for display; canonical English is used for composition
+  const category = categoryId
+    ? categories.find((c) => c.id === categoryId)
+    : undefined
 
   const steps: StepKind[] = useMemo(() => {
     const qs: StepKind[] = (category?.questions ?? []).map((question) => ({
@@ -80,7 +84,10 @@ export function IntakeWizard({
 
   const handleSubmit = () => {
     if (!category) return
-    onSubmit(composeIntakeMessage(category, answers, ownWords))
+    // Compose from the canonical English data: the knowledge base is English,
+    // so English keywords retrieve best. The answer language is set separately.
+    const canonical = getCategory(category.id) ?? category
+    onSubmit(composeIntakeMessage(canonical, answers, ownWords))
   }
 
   return (
@@ -101,17 +108,17 @@ export function IntakeWizard({
             className="flex items-center gap-1.5 text-xs text-legal-muted hover:text-legal-text transition-colors px-2 py-1.5 -ml-2 rounded-lg hover:bg-navy-800"
           >
             <ArrowLeftIcon className="w-3.5 h-3.5" />
-            Back
+            {t('wizard.back')}
           </button>
         ) : (
           <span />
         )}
         <span className="text-[11px] text-legal-muted tracking-wide">
-          Step {stepIndex + 1} of {steps.length}
+          {t('wizard.step', { n: stepIndex + 1, total: steps.length })}
         </span>
         <button
           onClick={onCancel}
-          title="Close guided help"
+          title={t('wizard.close')}
           className="text-legal-muted hover:text-legal-text transition-colors p-1.5 -mr-1 rounded-lg hover:bg-navy-800"
         >
           <XIcon className="w-4 h-4" />
@@ -207,18 +214,18 @@ function CategoryStep({
   selected: string | null
   onSelect: (cat: IntakeCategory) => void
 }) {
+  const { t, categories } = useI18n()
   return (
     <div className="animate-step-in">
       <h2 className="font-serif text-2xl text-legal-text font-bold mb-1.5">
-        What&rsquo;s going on?
+        {t('wizard.categoryTitle')}
       </h2>
       <p className="text-legal-muted text-sm mb-6 leading-relaxed">
-        Choose the situation closest to yours. I&rsquo;ll ask a few quick
-        questions so I properly understand your case before giving guidance.
+        {t('wizard.categorySub')}
       </p>
 
       <div className="grid sm:grid-cols-2 gap-2.5">
-        {INTAKE_CATEGORIES.map((cat) => {
+        {categories.map((cat) => {
           const Icon = cat.icon
           const isSelected = selected === cat.id
           return (
@@ -275,13 +282,14 @@ function QuestionStep({
   selected: string | undefined
   onSelect: (optionId: string) => void
 }) {
+  const { t } = useI18n()
   return (
     <div className="animate-step-in">
       <h2 className="font-serif text-2xl text-legal-text font-bold mb-1.5">
         {question.question}
       </h2>
       <p className="text-legal-muted text-sm mb-6 leading-relaxed">
-        {question.hint ?? 'Tap the answer that fits best — you can go back anytime.'}
+        {question.hint ?? t('wizard.questionHint')}
       </p>
 
       <div className="grid gap-2">
@@ -334,16 +342,19 @@ function OwnWordsStep({
   onChange: (v: string) => void
   onContinue: () => void
 }) {
+  const { t } = useI18n()
   const canContinue = !required || value.trim().length > 0
   return (
     <div className="animate-step-in">
       <h2 className="font-serif text-2xl text-legal-text font-bold mb-1.5">
-        {required ? 'Tell me what happened' : 'Anything else I should know?'}
+        {required
+          ? t('wizard.ownWords.title.required')
+          : t('wizard.ownWords.title.optional')}
       </h2>
       <p className="text-legal-muted text-sm mb-6 leading-relaxed">
         {required
-          ? 'Describe your situation in your own words — there are no wrong answers.'
-          : 'Add any detail in your own words, or skip this step. Dates, amounts and names of documents all help.'}
+          ? t('wizard.ownWords.sub.required')
+          : t('wizard.ownWords.sub.optional')}
       </p>
 
       <textarea
@@ -351,20 +362,18 @@ function OwnWordsStep({
         onChange={(e) => onChange(e.target.value)}
         rows={6}
         autoFocus
-        placeholder="For example: It started three months ago when…"
+        placeholder={t('wizard.ownWords.placeholder')}
         className="w-full bg-white border border-navy-700 shadow-sm focus:border-gold-400/60 rounded-xl px-4 py-3.5 text-sm text-legal-text placeholder-legal-muted/50 outline-none resize-none leading-relaxed transition-colors"
       />
 
       <div className="flex items-center justify-between mt-5">
-        <p className="text-[11px] text-legal-muted">
-          Private — nothing is stored under your name.
-        </p>
+        <p className="text-[11px] text-legal-muted">{t('wizard.ownWords.privacy')}</p>
         <button
           onClick={onContinue}
           disabled={!canContinue}
-          className="flex items-center gap-1.5 bg-gold-400 hover:bg-gold-300 disabled:bg-navy-700 disabled:text-legal-muted disabled:cursor-not-allowed text-navy-950 text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+          className="flex items-center gap-1.5 bg-gold-400 hover:bg-gold-300 disabled:bg-navy-700 disabled:text-legal-muted disabled:cursor-not-allowed text-navy-950 text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors cursor-pointer"
         >
-          {value.trim() || required ? 'Continue' : 'Skip this step'}
+          {value.trim() || required ? t('wizard.continue') : t('wizard.skip')}
           <ChevronRightIcon className="w-4 h-4" />
         </button>
       </div>
@@ -389,15 +398,16 @@ function ReviewStep({
   onEditOwnWords: () => void
   onSubmit: () => void
 }) {
+  const { t } = useI18n()
   const answered = category.questions.filter((q) => answers[q.id])
 
   return (
     <div className="animate-step-in">
       <h2 className="font-serif text-2xl text-legal-text font-bold mb-1.5">
-        Here&rsquo;s what I understand
+        {t('wizard.review.title')}
       </h2>
       <p className="text-legal-muted text-sm mb-6 leading-relaxed">
-        Check that this is right — tap any answer to change it.
+        {t('wizard.review.sub')}
       </p>
 
       <div className="bg-white border border-navy-700 rounded-xl divide-y divide-navy-700 shadow-sm mb-6 overflow-hidden">
@@ -407,7 +417,7 @@ function ReviewStep({
           </span>
           <div>
             <p className="text-[11px] text-legal-muted uppercase tracking-wide">
-              Situation
+              {t('wizard.review.situation')}
             </p>
             <p className="text-sm text-legal-text font-semibold">{category.label}</p>
           </div>
@@ -439,7 +449,7 @@ function ReviewStep({
           >
             <div className="min-w-0">
               <p className="text-[11px] text-legal-muted uppercase tracking-wide">
-                In your own words
+                {t('wizard.review.ownWords')}
               </p>
               <p className="text-sm text-legal-text leading-relaxed line-clamp-3">
                 {ownWords.trim()}
@@ -455,11 +465,10 @@ function ReviewStep({
         className="w-full flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-500 text-white text-sm font-bold px-5 py-3.5 rounded-xl shadow-sm transition-all hover:-translate-y-0.5 cursor-pointer"
       >
         <SparklesIcon className="w-4 h-4" />
-        Get my legal guidance
+        {t('wizard.review.submit')}
       </button>
       <p className="text-[11px] text-legal-muted text-center mt-3 leading-relaxed">
-        Swifty will research Namibian law for your situation. General information
-        only — not formal legal advice.
+        {t('wizard.review.note')}
       </p>
     </div>
   )

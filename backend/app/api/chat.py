@@ -122,12 +122,25 @@ async def chat(request: ChatRequest):
                 elif role == "assistant":
                     messages.append(AIMessage(content=content))
 
+            # Answer-language instruction (statute names stay in English)
+            ANSWER_LANGUAGES = {"af": "Afrikaans"}
+            language_note = ""
+            answer_language = ANSWER_LANGUAGES.get((request.language or "en").lower())
+            if answer_language:
+                language_note = (
+                    f"\n\nIMPORTANT: Write your ENTIRE answer in plain, warm {answer_language} "
+                    "suitable for an everyday Namibian reader. Keep the official English names "
+                    "of Acts and sections (e.g. 'Labour Act 11 of 2007, s 33') unchanged, and "
+                    "include the usual disclaimer translated into the same language."
+                )
+
             user_prompt = (
                 f"RETRIEVED LEGAL CONTEXT:\n{context}\n\n"
                 "---\n\n"
                 f"QUESTION: {request.message}\n\n"
                 "Apply the IRAC framework fully. Cite every applicable statutory provision "
                 "with the exact Act name, number, year, and section. Include the disclaimer."
+                f"{language_note}"
             )
             messages.append(HumanMessage(content=user_prompt))
 

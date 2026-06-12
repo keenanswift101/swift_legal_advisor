@@ -4,6 +4,8 @@ export interface ApiChatRequest {
   message: string
   session_id?: string
   history?: Array<{ role: string; content: string }>
+  /** UI language — the agent answers in this language (e.g. 'af') */
+  language?: string
 }
 
 /**

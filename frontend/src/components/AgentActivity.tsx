@@ -1,18 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { Message } from '../types'
+import { useI18n } from '../i18n'
 import { CheckIcon } from './icons'
-
-const DOMAIN_LABELS: Record<string, string> = {
-  constitutional: 'Constitutional Law',
-  corporate: 'Corporate Law',
-  labour: 'Labour Law',
-  tax: 'Tax Law',
-  banking: 'Banking & Finance',
-  criminal: 'Criminal Law',
-  family: 'Family Law',
-  property: 'Property Law',
-  general: 'General Law',
-}
 
 type StageState = 'pending' | 'active' | 'done'
 
@@ -27,6 +16,7 @@ interface Stage {
  * event, and the first content token — not a fake animation.
  */
 export function AgentActivity({ message }: { message: Message }) {
+  const { t } = useI18n()
   const [elapsed, setElapsed] = useState(0)
 
   useEffect(() => {
@@ -44,21 +34,21 @@ export function AgentActivity({ message }: { message: Message }) {
 
   const stages: Stage[] = [
     {
-      label: 'Reading your situation',
+      label: t('activity.reading'),
       state: readDone ? 'done' : 'active',
     },
     {
       label: domain
-        ? `Area of law identified: ${DOMAIN_LABELS[domain] ?? domain}`
-        : 'Identifying the area of law',
+        ? t('activity.identified', { domain: t(`domain.${domain}`) })
+        : t('activity.identifying'),
       state: domainDone ? 'done' : readDone ? 'active' : 'pending',
     },
     {
-      label: 'Searching Namibian statutes & case law',
+      label: t('activity.searching'),
       state: searchDone ? 'done' : domainDone ? 'active' : 'pending',
     },
     {
-      label: 'Writing your guidance',
+      label: t('activity.writing'),
       state: hasContent ? (streaming ? 'active' : 'done') : 'pending',
     },
   ]
@@ -66,7 +56,7 @@ export function AgentActivity({ message }: { message: Message }) {
   return (
     <div className="bg-navy-900/80 border border-navy-700 rounded-xl px-4 py-3 mb-3 animate-fade-in">
       <p className="text-[10px] uppercase tracking-widest text-legal-muted mb-2.5 font-medium">
-        Swifty is working on your case
+        {t('activity.header')}
       </p>
       <ol className="space-y-1.5">
         {stages.map((stage) => (
