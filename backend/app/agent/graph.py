@@ -11,7 +11,7 @@ from app.agent.state import AgentState
 
 def build_legal_advisor_graph():
     """
-    Build and compile the NamibiaLex LangGraph agent.
+    Build and compile the Swifty paralegal LangGraph agent.
 
     Flow:
       START → classify_intent → retrieve_context → reason_legally → format_response → END

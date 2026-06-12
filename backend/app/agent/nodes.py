@@ -12,7 +12,7 @@ from app.rag.retriever import retrieve_for_domain
 
 logger = logging.getLogger(__name__)
 
-VALID_DOMAINS = {"constitutional", "corporate", "labour", "tax", "banking", "general"}
+VALID_DOMAINS = {"constitutional", "corporate", "labour", "tax", "banking", "criminal", "family", "property", "general"}
 
 # Citation extraction patterns — ordered from most to least specific
 _CITATION_PATTERNS = [

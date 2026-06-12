@@ -11,11 +11,14 @@ logger = logging.getLogger(__name__)
 
 # Maps a legal domain → the collections most relevant to it
 DOMAIN_COLLECTIONS: dict[str, list[str]] = {
-    "constitutional": ["namibian_constitution", "local_docs"],
-    "corporate": ["companies_act", "close_corporations_act"],
-    "labour": ["labour_act"],
-    "tax": ["income_tax_act"],
-    "banking": ["banking_act"],
+    "constitutional": ["namibian_constitution", "local_docs", "government_gazette"],
+    "corporate": ["companies_act", "close_corporations_act", "government_gazette"],
+    "labour": ["labour_act", "local_docs", "government_gazette"],
+    "tax": ["income_tax_act", "government_gazette"],
+    "banking": ["banking_act", "bon_determinations", "namfisa", "government_gazette"],
+    "criminal": ["namibian_constitution", "local_docs", "government_gazette"],
+    "family": ["local_docs", "namibian_constitution", "government_gazette"],
+    "property": ["local_docs", "namibian_constitution", "government_gazette"],
     "general": [
         "namibian_constitution",
         "companies_act",
@@ -23,7 +26,10 @@ DOMAIN_COLLECTIONS: dict[str, list[str]] = {
         "income_tax_act",
         "banking_act",
         "close_corporations_act",
+        "bon_determinations",
+        "namfisa",
         "local_docs",
+        "government_gazette",
     ],
 }
 
@@ -34,7 +40,10 @@ ALL_COLLECTIONS: list[str] = [
     "income_tax_act",
     "banking_act",
     "close_corporations_act",
+    "bon_determinations",
+    "namfisa",
     "local_docs",
+    "government_gazette",
 ]
 
 

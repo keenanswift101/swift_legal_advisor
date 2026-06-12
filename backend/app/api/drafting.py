@@ -13,6 +13,7 @@ from app.agent.drafting_prompts import (
     DOCUMENT_TYPES,
     build_drafting_prompt,
 )
+from app.api.errors import user_facing_error
 from app.config import get_settings
 
 router = APIRouter()
@@ -67,7 +68,7 @@ async def draft_document(request: DraftRequest):
             yield _sse("done", doc_id)
         except Exception as exc:
             logger.error(f"Draft error: {exc}", exc_info=True)
-            yield _sse("error", str(exc))
+            yield _sse("error", user_facing_error(exc))
 
     return StreamingResponse(
         generate(),

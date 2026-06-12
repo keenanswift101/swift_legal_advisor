@@ -6,7 +6,6 @@ DOCUMENT_TYPES = [
     {
         "id": "opinion_letter",
         "label": "Legal Opinion Letter",
-        "icon": "📄",
         "fields": [
             {"id": "recipient_name", "label": "Recipient Name", "type": "text", "placeholder": "e.g. Mr. John Smith"},
             {"id": "recipient_company", "label": "Recipient Company / Organisation", "type": "text", "placeholder": "e.g. Namibia Holdings (Pty) Ltd"},
@@ -20,7 +19,6 @@ DOCUMENT_TYPES = [
     {
         "id": "cease_desist",
         "label": "Cease & Desist Letter",
-        "icon": "🛑",
         "fields": [
             {"id": "sender_name", "label": "Sender / Client Name", "type": "text", "placeholder": "e.g. Acme (Pty) Ltd"},
             {"id": "recipient_name", "label": "Recipient Name", "type": "text", "placeholder": "e.g. Mr. John Doe"},
@@ -34,7 +32,6 @@ DOCUMENT_TYPES = [
     {
         "id": "demand_letter",
         "label": "Demand Letter",
-        "icon": "💼",
         "fields": [
             {"id": "creditor_name", "label": "Creditor / Claimant Name", "type": "text", "placeholder": "e.g. ABC Suppliers CC"},
             {"id": "debtor_name", "label": "Debtor / Respondent Name", "type": "text", "placeholder": "e.g. XYZ Contractors (Pty) Ltd"},
@@ -47,7 +44,6 @@ DOCUMENT_TYPES = [
     {
         "id": "nda",
         "label": "Non-Disclosure Agreement",
-        "icon": "🤫",
         "fields": [
             {"id": "disclosing_party", "label": "Disclosing Party (full legal name)", "type": "text", "placeholder": "e.g. Innovate Namibia (Pty) Ltd"},
             {"id": "receiving_party", "label": "Receiving Party (full legal name)", "type": "text", "placeholder": "e.g. Tech Solutions CC"},
@@ -60,7 +56,6 @@ DOCUMENT_TYPES = [
     {
         "id": "board_resolution",
         "label": "Board Resolution",
-        "icon": "📋",
         "fields": [
             {"id": "company_name", "label": "Company Name", "type": "text", "placeholder": "e.g. Sunrise Investments (Pty) Ltd"},
             {"id": "registration_number", "label": "Registration Number", "type": "text", "placeholder": "e.g. 2020/0123"},
@@ -74,7 +69,6 @@ DOCUMENT_TYPES = [
     {
         "id": "employment_contract",
         "label": "Employment Contract",
-        "icon": "👔",
         "fields": [
             {"id": "employer_name", "label": "Employer Name", "type": "text", "placeholder": "e.g. Coastal Mining (Pty) Ltd"},
             {"id": "employee_name", "label": "Employee Full Name", "type": "text", "placeholder": "e.g. Mr. Thomas Kambonde"},
@@ -90,7 +84,6 @@ DOCUMENT_TYPES = [
     {
         "id": "mou",
         "label": "Memorandum of Understanding",
-        "icon": "🤝",
         "fields": [
             {"id": "party_a", "label": "Party A (full legal name)", "type": "text", "placeholder": "e.g. Ministry of Finance, Republic of Namibia"},
             {"id": "party_b", "label": "Party B (full legal name)", "type": "text", "placeholder": "e.g. Green Energy Solutions (Pty) Ltd"},
@@ -104,7 +97,6 @@ DOCUMENT_TYPES = [
     {
         "id": "settlement_agreement",
         "label": "Settlement Agreement",
-        "icon": "⚖️",
         "fields": [
             {"id": "claimant_name", "label": "Claimant / Plaintiff Name", "type": "text", "placeholder": "e.g. Namibia Retail (Pty) Ltd"},
             {"id": "respondent_name", "label": "Respondent / Defendant Name", "type": "text", "placeholder": "e.g. Fast Logistics CC"},
@@ -118,7 +110,6 @@ DOCUMENT_TYPES = [
     {
         "id": "power_of_attorney",
         "label": "Power of Attorney",
-        "icon": "🔏",
         "fields": [
             {"id": "principal_name", "label": "Principal (Grantor) Full Name", "type": "text", "placeholder": "e.g. Maria Nghifikwa"},
             {"id": "principal_id", "label": "Principal ID / Passport No.", "type": "text", "placeholder": "e.g. 880512 1234 5"},
@@ -131,7 +122,6 @@ DOCUMENT_TYPES = [
     {
         "id": "shareholders_agreement",
         "label": "Shareholders Agreement",
-        "icon": "🏢",
         "fields": [
             {"id": "company_name", "label": "Company Name", "type": "text", "placeholder": "e.g. Harvest Capital (Pty) Ltd"},
             {"id": "shareholders", "label": "Shareholders & Shareholding", "type": "textarea", "placeholder": "Name — % shareholding\nName — % shareholding"},

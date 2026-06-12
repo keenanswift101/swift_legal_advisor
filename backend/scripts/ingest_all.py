@@ -78,27 +78,41 @@ def main() -> int:
     # Attempt to copy the local PDF supplement automatically
     _copy_local_pdf(data_dir)
 
-    pdf_files = sorted(data_dir.glob("*.pdf"))
-    if not pdf_files:
+    top_level_pdfs = sorted(data_dir.glob("*.pdf"))
+    subdir_pdfs = sorted(data_dir.glob("*/*.pdf"))
+
+    if not top_level_pdfs and not subdir_pdfs:
         logger.error(f"No PDFs found in {data_dir}. Run download_acts.py first.")
         return 1
 
-    logger.info(f"Found {len(pdf_files)} PDF(s) in {data_dir}")
+    # Top-level files keep the existing stem-based resolution; files placed in
+    # a subdirectory (e.g. data/raw/bon_determinations/*.pdf) use the
+    # subdirectory name directly as the collection name.
+    targets: list[tuple[Path, str]] = []
+    for pdf_path in top_level_pdfs:
+        targets.append((pdf_path, _resolve_collection(pdf_path)))
+    for pdf_path in subdir_pdfs:
+        targets.append((pdf_path, pdf_path.parent.name))
+
+    logger.info(
+        f"Found {len(targets)} PDF(s) in {data_dir} "
+        f"({len(top_level_pdfs)} top-level, {len(subdir_pdfs)} in subdirectories)"
+    )
 
     # Lazy import after sys.path is set
     from app.rag.ingestion import ingest_pdf_to_collection
     from app.rag.retriever import get_collection_stats
 
     results: dict[str, dict] = {}
-    for pdf_path in pdf_files:
-        collection = _resolve_collection(pdf_path)
+    for pdf_path, collection in targets:
+        label = f"{pdf_path.parent.name}/{pdf_path.name}" if pdf_path.parent != data_dir else pdf_path.name
         try:
             count = ingest_pdf_to_collection(pdf_path, collection)
-            results[pdf_path.name] = {"collection": collection, "chunks": count, "status": "ok"}
-            logger.info(f"  ✓ {pdf_path.name}  →  '{collection}'  ({count} chunks)")
+            results[label] = {"collection": collection, "chunks": count, "status": "ok"}
+            logger.info(f"  ✓ {label}  →  '{collection}'  ({count} chunks)")
         except Exception as exc:
-            results[pdf_path.name] = {"collection": collection, "error": str(exc), "status": "failed"}
-            logger.error(f"  ✗ {pdf_path.name}  →  FAILED: {exc}")
+            results[label] = {"collection": collection, "error": str(exc), "status": "failed"}
+            logger.error(f"  ✗ {label}  →  FAILED: {exc}")
 
     # ── Final summary ─────────────────────────────────────────────────────────
     stats = get_collection_stats()

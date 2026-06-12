@@ -18,8 +18,7 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Starting NamibiaLex Legal Advisor API …")
-    # Pre-load the embedding model at startup to avoid cold-start latency
+    logger.info("Starting Swifty Paralegal Assistant API …")
     from app.rag.embeddings import get_embeddings
     get_embeddings()
     logger.info("Embedding model ready.")
@@ -30,8 +29,8 @@ async def lifespan(app: FastAPI):
 settings = get_settings()
 
 app = FastAPI(
-    title="NamibiaLex Legal Advisor API",
-    description="Agentic AI legal advisor for Namibian business law (UNAM masters-level)",
+    title="Swifty Paralegal Assistant API",
+    description="AI paralegal assistant for Namibian law — everyday legal guidance for all Namibians",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -51,7 +50,7 @@ app.include_router(ingest_router, prefix="/api")
 
 @app.get("/")
 async def root():
-    return {"service": "NamibiaLex Legal Advisor", "version": "1.0.0", "status": "online"}
+    return {"service": "Swifty Paralegal Assistant", "version": "1.0.0", "status": "online"}
 
 
 @app.get("/health")

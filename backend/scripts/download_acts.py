@@ -79,8 +79,8 @@ async def main() -> int:
 
     headers = {
         "User-Agent": (
-            "NamibiaLex/1.0 (Namibian legal research tool; "
-            "academic/internal use; contact: info@namibialex.local)"
+            "Swifty/1.0 (Namibian paralegal assistant; "
+            "academic/internal use; contact: info@swifty.legal)"
         ),
         "Accept": "application/pdf,application/octet-stream,*/*",
     }

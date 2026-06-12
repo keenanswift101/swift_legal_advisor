@@ -11,10 +11,12 @@ venv/
 *.env.local
 *.env.*.local
 
-# Data / models (too large for git)
+# Data / models (too large for git — re-downloadable via backend/scripts/)
 backend/chroma_db/
-backend/data/raw/*.pdf
-backend/data/raw/*.PDF
+backend/data/raw/
+
+# Claude Code local settings (machine-specific permissions)
+.claude/settings.local.json
 
 # Node
 node_modules/

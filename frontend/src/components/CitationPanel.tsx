@@ -1,4 +1,5 @@
 import type { Citation, Message } from '../types'
+import { XIcon } from './icons'
 
 interface CitationPanelProps {
   selectedMessage: Message | null
@@ -44,7 +45,7 @@ export function CitationPanel({ selectedMessage, onClose }: CitationPanelProps) 
             className="text-legal-muted hover:text-legal-text transition-colors w-7 h-7 flex items-center justify-center rounded-full hover:bg-navy-800"
             aria-label="Close citations panel"
           >
-            ✕
+            <XIcon className="w-4 h-4" />
           </button>
         </div>
 

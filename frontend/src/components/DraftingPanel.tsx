@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useDraftingContext } from '../context/DraftingContext'
+import { FolderIcon, SparklesIcon, LoaderIcon, PrinterIcon, DownloadIcon, FileTextIcon } from './icons'
 
 export function DraftingPanel() {
   const {
@@ -18,7 +19,6 @@ export function DraftingPanel() {
 
   const outputRef = useRef<HTMLDivElement>(null)
 
-  // Auto-scroll output as document streams in
   useEffect(() => {
     if (outputRef.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight
@@ -89,7 +89,7 @@ export function DraftingPanel() {
           >
             <option value="" disabled>Select a document type…</option>
             {documentTypes.map(d => (
-              <option key={d.id} value={d.id}>{d.icon}  {d.label}</option>
+              <option key={d.id} value={d.id}>{d.label}</option>
             ))}
           </select>
         </div>
@@ -107,13 +107,13 @@ export function DraftingPanel() {
         <div className="w-[42%] flex-shrink-0 border-r border-navy-700 overflow-y-auto bg-navy-900">
           {!selectedType ? (
             <div className="flex flex-col items-center justify-center h-full text-legal-muted text-sm p-10 text-center gap-4">
-              <div className="text-5xl opacity-40">📂</div>
+              <FolderIcon className="w-12 h-12 opacity-30" />
               <p className="opacity-70">Select a document type from the dropdown above to begin.</p>
             </div>
           ) : (
             <div className="p-6 flex flex-col gap-4 animate-fade-in">
               <h2 className="text-gold-400 font-serif text-base font-semibold flex items-center gap-2">
-                <span>{selectedType.icon}</span>
+                <FileTextIcon className="w-4 h-4 opacity-70" />
                 <span>{selectedType.label}</span>
               </h2>
 
@@ -146,14 +146,24 @@ export function DraftingPanel() {
                 <button
                   onClick={generateDocument}
                   disabled={isGenerating}
-                  className="w-full bg-gold-500 hover:bg-gold-400 active:bg-gold-600 disabled:opacity-50 disabled:cursor-not-allowed text-navy-950 font-semibold rounded-lg px-4 py-2.5 text-sm transition-colors"
+                  className="w-full bg-gold-400 hover:bg-gold-300 active:bg-gold-500 disabled:opacity-50 disabled:cursor-not-allowed text-navy-950 font-semibold rounded-lg px-4 py-2.5 text-sm transition-colors flex items-center justify-center gap-2"
                 >
-                  {isGenerating ? '⏳ Generating…' : '⚡ Generate Document'}
+                  {isGenerating ? (
+                    <>
+                      <LoaderIcon className="w-4 h-4 animate-spin" />
+                      Generating…
+                    </>
+                  ) : (
+                    <>
+                      <SparklesIcon className="w-4 h-4" />
+                      Generate Document
+                    </>
+                  )}
                 </button>
                 {isGenerating && (
                   <button
                     onClick={stopGeneration}
-                    className="w-full text-xs text-legal-muted hover:text-red-400 py-1.5 border border-navy-700 hover:border-red-500/40 rounded-lg transition-colors"
+                    className="w-full text-xs text-legal-muted hover:text-red-600 py-1.5 border border-navy-700 hover:border-red-400 rounded-lg transition-colors"
                   >
                     Stop
                   </button>
@@ -180,19 +190,21 @@ export function DraftingPanel() {
               </button>
               <button
                 onClick={handlePrint}
-                className="text-[11px] text-legal-muted hover:text-gold-400 px-2.5 py-1 border border-navy-700 rounded hover:border-gold-500/60 transition-colors"
+                className="flex items-center gap-1 text-[11px] text-legal-muted hover:text-gold-400 px-2.5 py-1 border border-navy-700 rounded hover:border-gold-500/60 transition-colors"
               >
-                🖨 Print
+                <PrinterIcon className="w-3.5 h-3.5" />
+                Print
               </button>
               <button
                 onClick={handleDownload}
-                className="text-[11px] text-legal-muted hover:text-gold-400 px-2.5 py-1 border border-navy-700 rounded hover:border-gold-500/60 transition-colors"
+                className="flex items-center gap-1 text-[11px] text-legal-muted hover:text-gold-400 px-2.5 py-1 border border-navy-700 rounded hover:border-gold-500/60 transition-colors"
               >
-                ↓ Download
+                <DownloadIcon className="w-3.5 h-3.5" />
+                Download
               </button>
               <button
                 onClick={clearOutput}
-                className="text-[11px] text-legal-muted hover:text-red-400 px-2.5 py-1 border border-navy-700 rounded hover:border-red-500/40 transition-colors"
+                className="text-[11px] text-legal-muted hover:text-red-600 px-2.5 py-1 border border-navy-700 rounded hover:border-red-400 transition-colors"
               >
                 Clear
               </button>
@@ -201,7 +213,7 @@ export function DraftingPanel() {
 
           {/* Error banner */}
           {error && (
-            <div className="flex-shrink-0 mx-4 mt-4 p-3 bg-red-950/50 border border-red-500/30 rounded-lg text-red-400 text-sm">
+            <div className="flex-shrink-0 mx-4 mt-4 p-3 bg-red-50 border border-red-300 rounded-lg text-red-800 text-sm">
               {error}
             </div>
           )}
@@ -209,7 +221,7 @@ export function DraftingPanel() {
           {/* Document content */}
           {!output && !isGenerating ? (
             <div className="flex-1 flex flex-col items-center justify-center text-legal-muted text-sm p-10 text-center gap-3">
-              <div className="text-5xl opacity-30">📄</div>
+              <FileTextIcon className="w-12 h-12 opacity-20" />
               <p className="opacity-70">Your generated document will appear here.</p>
               <p className="text-xs opacity-40">Supports Copy, Print (letter format), and Download.</p>
             </div>
@@ -217,7 +229,7 @@ export function DraftingPanel() {
             <div ref={outputRef} className="flex-1 overflow-y-auto p-6">
               <pre className="font-serif text-sm text-legal-text whitespace-pre-wrap leading-relaxed">
                 {output}
-                {isGenerating && <span className="inline-block animate-pulse text-gold-400 ml-0.5">▍</span>}
+                {isGenerating && <span className="inline-block animate-pulse text-gold-400 ml-0.5">|</span>}
               </pre>
             </div>
           )}

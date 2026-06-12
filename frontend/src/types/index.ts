@@ -17,6 +17,7 @@ export interface Message {
   legal_domain?: string
   timestamp: Date
   isStreaming?: boolean
+  isError?: boolean
 }
 
 export interface ChatState {
@@ -45,7 +46,6 @@ export interface DocumentField {
 export interface DocumentType {
   id: string
   label: string
-  icon: string
   fields: DocumentField[]
 }
 

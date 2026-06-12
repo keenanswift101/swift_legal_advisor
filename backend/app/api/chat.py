@@ -9,6 +9,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_anthropic import ChatAnthropic
 
 from app.agent.prompts import CLASSIFY_INTENT_PROMPT, LEGAL_ADVISOR_SYSTEM_PROMPT
+from app.api.errors import user_facing_error
 from app.config import get_settings
 from app.models.schemas import ChatRequest
 from app.rag.retriever import retrieve_for_domain
@@ -16,7 +17,17 @@ from app.rag.retriever import retrieve_for_domain
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-VALID_DOMAINS = {"constitutional", "corporate", "labour", "tax", "banking", "general"}
+VALID_DOMAINS = {
+    "constitutional",
+    "corporate",
+    "labour",
+    "tax",
+    "banking",
+    "criminal",
+    "family",
+    "property",
+    "general",
+}
 
 _CITATION_PATTERNS = [
     r"((?:[\w\-]+\s+)+Act\s+\d+\s+of\s+\d{4}),?\s+s(?:ection)?\s+(\d+[A-Z]?(?:\(\d+\))*(?:\([a-z]\))*)",
@@ -143,7 +154,7 @@ async def chat(request: ChatRequest):
 
         except Exception as exc:
             logger.error(f"Chat error: {exc}", exc_info=True)
-            yield _sse("error", str(exc))
+            yield _sse("error", user_facing_error(exc))
 
     return StreamingResponse(
         generate(),

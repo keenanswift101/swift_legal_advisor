@@ -6,6 +6,34 @@ function generateId(): string {
   return Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
+/**
+ * Last line of defence: never surface raw technical errors to users.
+ * Backend errors are already sanitized; this catches fetch/network-level
+ * failures and anything that still looks technical.
+ */
+function friendlyError(raw: string): string {
+  const t = raw.toLowerCase()
+  if (
+    t.includes('failed to fetch') ||
+    t.includes('networkerror') ||
+    t.includes('load failed') ||
+    t.includes('econnrefused')
+  ) {
+    return "Swifty can't be reached right now. Please check your internet connection and try again."
+  }
+  if (
+    t.includes('error code') ||
+    t.includes('request_id') ||
+    t.includes('server error') ||
+    t.includes('traceback') ||
+    t.includes('exception') ||
+    raw.includes('{')
+  ) {
+    return 'Something went wrong while preparing your answer. Please try again in a moment.'
+  }
+  return raw
+}
+
 export interface UseChatReturn extends ChatState {
   sendMessage: (text: string) => Promise<void>
   stopGeneration: () => void
@@ -98,15 +126,16 @@ export function useChat(): UseChatReturn {
               ),
             }))
           },
-          // onError
+          // onError — friendly message goes in the bubble; no duplicate banner
           (error) => {
+            const msg = friendlyError(error)
             setState((prev) => ({
               ...prev,
               isLoading: false,
-              error,
+              error: null,
               messages: prev.messages.map((m) =>
                 m.id === assistantMsgId
-                  ? { ...m, content: `⚠ ${error}`, isStreaming: false }
+                  ? { ...m, content: msg, isStreaming: false, isError: true }
                   : m,
               ),
             }))
@@ -115,9 +144,9 @@ export function useChat(): UseChatReturn {
         )
       } catch (err) {
         if ((err as Error).name !== 'AbortError') {
-          const msg = (err as Error).message
-          patch({ content: `⚠ ${msg}`, isStreaming: false })
-          setState((prev) => ({ ...prev, isLoading: false, error: msg }))
+          const msg = friendlyError((err as Error).message)
+          patch({ content: msg, isStreaming: false, isError: true })
+          setState((prev) => ({ ...prev, isLoading: false, error: null }))
         }
       }
     },
