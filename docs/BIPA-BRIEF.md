@@ -1,7 +1,14 @@
 # Instruction brief — Registering "Swifty" under Swift Designz Investments CC
 
 Prepared: 12 June 2026 · From: Keenan Husselmann (member, Swift Designz Investments CC)
-Purpose: ready-to-send instruction to business consultants for BIPA filings.
+Purpose: ready-to-send instruction for BIPA filings.
+
+> **STATUS UPDATE (12 Jun 2026):** Business consultants confirmed they do
+> **not** offer trademark services; they offered SME registration and
+> affirmative action/tender registration instead (accepted — useful for
+> government/tender work). Trademark route is therefore **direct filing at
+> BIPA or an IP attorney** — see "Trademark without the consultants" below.
+> The email below remains usable as an instruction to an IP attorney.
 
 ---
 
@@ -77,6 +84,24 @@ Purpose: ready-to-send instruction to business consultants for BIPA filings.
 - **Classes 9/42/45** — cover the app, the hosted service, and the legal-
   information service respectively. Class 45 wording must say *legal
   information*, never *legal advice* (see docs/LEGAL-COMPLIANCE.md).
+
+## Trademark without the consultants (current route)
+
+**Option A — file directly at BIPA (cheapest; filing date secures priority):**
+1. Request an **availability search** for "SWIFTY" at BIPA's IP division (bipa.na)
+2. File the trademark application per class (9, 42, 45) with logo artwork and
+   prescribed fees, applicant **Swift Designz Investments CC**
+3. Process: examination → publication in the Industrial Property Journal →
+   3-month opposition window → registration (often 12+ months total — the
+   **filing date** is what protects you, so file early)
+
+**Option B — IP attorney in Windhoek:** higher cost, but handles classification
+wording and office actions. Referral: Law Society of Namibia +264 61 218 202.
+The instruction email above works verbatim for an attorney.
+
+**In parallel (via the consultants):** SME certificate + affirmative action /
+tender registration for the CC — accepted their offer; useful for government,
+institutional and funding applications.
 
 ## Follow-ups after filing
 
