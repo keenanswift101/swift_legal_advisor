@@ -63,6 +63,42 @@ python scripts/ingest_gazette_pdfs.py  # corpus/ gazettes
   first-person message; its leading line and option labels are retrieval
   keywords — edit with care.
 
+## Agent orchestration
+
+The main session acts as the **orchestrator**: decompose the request, route each
+piece to its domain agent (`.claude/agents/`), integrate the results. Do the
+work inline only when it's trivial (single file, ~15 lines or less) — otherwise
+delegate to the owning agent:
+
+| Domain / file area | Owning agent | Typical tasks |
+|---|---|---|
+| `frontend/src/**` React UI, state, styling | **frontend-developer** | components, hooks, Tailwind, SSE wiring |
+| UX flows, visual review, accessibility | **ui-ux-designer** | design critique, intake/wizard UX, WCAG |
+| Advanced TypeScript / type design | **typescript-pro** | generics, type-safety across api.ts/types |
+| API contracts, service & data design | **backend-architect** | endpoint design, schemas, scaling, SSE protocol |
+| `backend/**` Python implementation | **python-pro** | FastAPI handlers, RAG pipeline, ingestion scripts |
+| Features spanning frontend + backend | **fullstack-developer** | intake→API→UI features, end-to-end changes |
+| `backend/app/agent/prompts*.py` | **prompt-engineer** | system prompt, classifier, drafting prompts |
+| Tests & verification | **test-engineer** | Playwright flows, test strategy, coverage |
+| Security-sensitive code (auth, errors, .env, API exposure) | **security-auditor** | audits, secret handling, API security |
+| Any substantial diff before commit | **code-reviewer** | quality/security review gate |
+| Long multi-agent effort | **context-manager** | context handoffs between agents |
+
+**Rules:**
+1. Independent subtasks → spawn agents **in parallel**; dependent subtasks →
+   sequential, continuing the same agent via SendMessage where context matters.
+2. Every agent prompt must include the **Critical rules** above (plain language,
+   monochrome UI, error sanitization, never touch `.env`) and point at
+   docs/DESIGN.md for UI work.
+3. Workflow for a feature: backend-architect/ui-ux-designer (design if needed)
+   → implementing agent(s) → test-engineer (verify against the running app) →
+   code-reviewer (gate) → orchestrator integrates + commits.
+4. security-auditor reviews anything touching auth, error paths, secrets or new
+   endpoints before it ships.
+5. Agents should lean on the matching installed skills (`.claude/skills/`):
+   e.g. senior-frontend / tailwind-patterns for UI, senior-backend for APIs,
+   webapp-testing for Playwright, systematic-debugging for bugs.
+
 ## Conventions
 
 - TypeScript strict; functional React components; Tailwind utility classes using
