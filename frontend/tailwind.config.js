@@ -4,34 +4,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Light theme: "navy" = surfaces (white → grey), "gold" = ink (grey → black)
+        // Calm Trust theme: "navy" = surfaces (white → cool grey),
+        // "gold" = ink (deep navy), "accent" = warm amber (CTAs only)
         navy: {
           950: '#ffffff',
-          900: '#fafafa',
-          800: '#f5f5f5',
-          700: '#e5e5e5',
-          600: '#d4d4d4',
-          500: '#a3a3a3',
+          900: '#f8fafc',
+          800: '#f1f5f9',
+          700: '#e2e8f0',
+          600: '#cbd5e1',
+          500: '#94a3b8',
         },
         gold: {
-          600: '#525252',
-          500: '#404040',
-          400: '#171717',
-          300: '#2e2e2e',
-          200: '#383838',
-          100: '#404040',
+          600: '#16306e',
+          500: '#2c4a9e',
+          400: '#1e3a8a',
+          300: '#2d4da8',
+          200: '#c7d2fe',
+          100: '#e0e7ff',
+        },
+        accent: {
+          700: '#92400e',
+          600: '#b45309',
+          500: '#d97706',
         },
         legal: {
-          bg: '#ffffff',
-          surface: '#f5f5f5',
-          border: '#e5e5e5',
-          text: '#0a0a0a',
-          muted: '#262626',
+          bg: '#f8fafc',
+          surface: '#ffffff',
+          border: '#e2e8f0',
+          text: '#0f172a',
+          muted: '#475569',
         },
       },
       fontFamily: {
-        serif: ['Georgia', '"Times New Roman"', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"EB Garamond"', 'Georgia', '"Times New Roman"', 'serif'],
+        sans: ['Lato', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.25s ease-out',

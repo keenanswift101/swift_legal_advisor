@@ -225,17 +225,17 @@ function CategoryStep({
             <button
               key={cat.id}
               onClick={() => onSelect(cat)}
-              className={`flex items-start gap-3 text-left px-4 py-3.5 rounded-xl border transition-all duration-150 group ${
+              className={`flex items-start gap-3 text-left px-4 py-3.5 rounded-xl border transition-all duration-150 group cursor-pointer ${
                 isSelected
                   ? 'bg-gold-400 border-gold-400 text-navy-950'
-                  : 'bg-navy-800 border-navy-700 hover:border-gold-500/50 hover:bg-navy-700 hover:-translate-y-0.5'
+                  : 'bg-white border-navy-700 shadow-sm hover:border-gold-400/50 hover:shadow hover:-translate-y-0.5'
               }`}
             >
               <span
                 className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
                   isSelected
                     ? 'bg-navy-950/10 text-navy-950'
-                    : 'bg-navy-900 text-gold-400 group-hover:text-gold-300'
+                    : 'bg-gold-100 text-gold-400 group-hover:text-gold-300'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -291,10 +291,10 @@ function QuestionStep({
             <button
               key={opt.id}
               onClick={() => onSelect(opt.id)}
-              className={`flex items-center gap-3 text-left px-4 py-3.5 rounded-xl border transition-all duration-150 ${
+              className={`flex items-center gap-3 text-left px-4 py-3.5 rounded-xl border transition-all duration-150 cursor-pointer ${
                 isSelected
                   ? 'bg-gold-400 border-gold-400 text-navy-950'
-                  : 'bg-navy-800 border-navy-700 hover:border-gold-500/50 hover:bg-navy-700'
+                  : 'bg-white border-navy-700 shadow-sm hover:border-gold-400/50 hover:shadow'
               }`}
             >
               <span
@@ -352,7 +352,7 @@ function OwnWordsStep({
         rows={6}
         autoFocus
         placeholder="For example: It started three months ago when…"
-        className="w-full bg-navy-800 border border-navy-700 focus:border-gold-500/60 rounded-xl px-4 py-3.5 text-sm text-legal-text placeholder-legal-muted/40 outline-none resize-none leading-relaxed transition-colors"
+        className="w-full bg-white border border-navy-700 shadow-sm focus:border-gold-400/60 rounded-xl px-4 py-3.5 text-sm text-legal-text placeholder-legal-muted/50 outline-none resize-none leading-relaxed transition-colors"
       />
 
       <div className="flex items-center justify-between mt-5">
@@ -400,9 +400,9 @@ function ReviewStep({
         Check that this is right — tap any answer to change it.
       </p>
 
-      <div className="bg-navy-800 border border-navy-700 rounded-xl divide-y divide-navy-700 mb-6 overflow-hidden">
+      <div className="bg-white border border-navy-700 rounded-xl divide-y divide-navy-700 shadow-sm mb-6 overflow-hidden">
         <div className="flex items-center gap-3 px-4 py-3.5">
-          <span className="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center flex-shrink-0">
+          <span className="w-8 h-8 rounded-lg bg-gold-100 text-gold-400 flex items-center justify-center flex-shrink-0">
             <category.icon className="w-5 h-5" />
           </span>
           <div>
@@ -452,7 +452,7 @@ function ReviewStep({
 
       <button
         onClick={onSubmit}
-        className="w-full flex items-center justify-center gap-2 bg-gold-400 hover:bg-gold-300 text-navy-950 text-sm font-bold px-5 py-3.5 rounded-xl transition-all hover:-translate-y-0.5"
+        className="w-full flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-500 text-white text-sm font-bold px-5 py-3.5 rounded-xl shadow-sm transition-all hover:-translate-y-0.5 cursor-pointer"
       >
         <SparklesIcon className="w-4 h-4" />
         Get my legal guidance

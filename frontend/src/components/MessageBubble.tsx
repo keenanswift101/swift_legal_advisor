@@ -47,7 +47,7 @@ export function MessageBubble({
   if (isUser) {
     return (
       <div className="flex justify-end mb-4 animate-fade-in">
-        <div className="max-w-[78%] bg-navy-600 rounded-2xl rounded-tr-sm px-4 py-3 text-legal-text text-sm leading-relaxed whitespace-pre-line">
+        <div className="max-w-[78%] bg-gold-100 rounded-2xl rounded-tr-sm px-4 py-3 text-legal-text text-sm leading-relaxed whitespace-pre-line">
           {message.content}
         </div>
       </div>
@@ -58,7 +58,7 @@ export function MessageBubble({
   return (
     <div className="flex gap-3 mb-6 animate-fade-in">
       {/* Avatar */}
-      <div className="w-8 h-8 rounded-full bg-navy-800 border border-navy-700 flex-shrink-0 flex items-center justify-center text-gold-400 mt-1">
+      <div className="w-8 h-8 rounded-full bg-gold-100 flex-shrink-0 flex items-center justify-center text-gold-400 mt-1">
         <ScaleIcon className="w-4 h-4" />
       </div>
 
@@ -79,7 +79,7 @@ export function MessageBubble({
 
         {/* Answer bubble — hidden until the first token arrives */}
         <div
-          className={`bg-navy-800 rounded-2xl rounded-tl-sm px-5 py-4 ${
+          className={`bg-white border border-navy-700 shadow-sm rounded-2xl rounded-tl-sm px-5 py-4 ${
             message.content.length === 0 ? 'hidden' : ''
           }`}
         >

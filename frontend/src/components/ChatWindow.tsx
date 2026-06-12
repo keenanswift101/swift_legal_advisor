@@ -227,7 +227,7 @@ function WelcomeScreen({
   return (
     <div className="flex flex-col items-center pt-10 pb-6 px-2 animate-slide-up">
       {/* Brand mark */}
-      <div className="w-14 h-14 rounded-2xl bg-navy-800 border border-navy-700 flex items-center justify-center text-gold-400 mb-5">
+      <div className="w-14 h-14 rounded-2xl bg-gold-100 flex items-center justify-center text-gold-400 mb-5">
         <ScaleIcon className="w-7 h-7" />
       </div>
 
@@ -248,9 +248,9 @@ function WelcomeScreen({
             <button
               key={cat.id}
               onClick={() => onPickCategory(cat.id)}
-              className="flex items-center gap-3 text-left px-4 py-3.5 rounded-xl bg-navy-800 border border-navy-700 hover:border-gold-500/50 hover:bg-navy-700 hover:-translate-y-0.5 transition-all duration-150 group"
+              className="flex items-center gap-3 text-left px-4 py-3.5 rounded-xl bg-white border border-navy-700 shadow-sm hover:border-gold-400/50 hover:shadow hover:-translate-y-0.5 transition-all duration-150 group cursor-pointer"
             >
-              <span className="w-9 h-9 rounded-lg bg-navy-900 text-gold-400 group-hover:text-gold-300 flex items-center justify-center flex-shrink-0 transition-colors">
+              <span className="w-9 h-9 rounded-lg bg-gold-100 text-gold-400 group-hover:text-gold-300 flex items-center justify-center flex-shrink-0 transition-colors">
                 <Icon className="w-5 h-5" />
               </span>
               <span className="min-w-0 flex-1">
@@ -289,7 +289,7 @@ function WelcomeScreen({
         ].map((item) => (
           <span
             key={item}
-            className="px-3 py-1 rounded-full bg-navy-800 border border-navy-700"
+            className="px-3 py-1 rounded-full bg-white border border-navy-700"
           >
             {item}
           </span>

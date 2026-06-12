@@ -1,6 +1,9 @@
 # DESIGN.md — Swifty design system
 
 The visual and interaction language of Swifty. Read before touching any UI.
+**Methodology: "Calm Trust"** (adopted 12 Jun 2026) — soft off-white surfaces,
+deep navy ink, one warm amber accent reserved for conversion moments. Calm,
+human, classic legal trust; never stark, never loud.
 
 ## Brand
 
@@ -11,43 +14,56 @@ The visual and interaction language of Swifty. Read before touching any UI.
 - **No emojis. Anywhere.** Icons are inline SVG components
   (`frontend/src/components/icons.tsx`, Heroicons-style strokes).
 
-## Colour — strict monochrome
+## Colour — Calm Trust
 
-White background, black text. The **only** colours allowed:
+Three ingredients, strictly rationed:
 
-1. The Namibian flag (brand mark — never recolour it)
-2. Crisis/error red (`red-50/300/700/800/900` light-theme tints) — reserved for
-   danger banners and failure states
+1. **Navy ink** (`#1e3a8a`) — headings, primary buttons, icons, links
+2. **Warm amber** (`#b45309`) — ONLY the main conversion CTAs ("Get legal
+   guidance", wizard submit, "Start now"). Never more than one amber element
+   visible per screen region.
+3. **Cool greys/off-white** — everything else. Plus the Namibian flag (never
+   recolour) and crisis/error red tints (danger banners and failures only).
 
 ### Token table (Tailwind, `frontend/tailwind.config.js`)
 
-The palette keeps legacy token *names* (`navy`, `gold`) but maps them to a light
-greyscale. **`navy-*` = surfaces, `gold-*` = ink.**
+Legacy token *names* are kept (`navy`, `gold`) but remapped:
+**`navy-*` = surfaces, `gold-*` = navy ink, `accent-*` = amber CTA.**
 
 | Token | Hex | Use |
 |---|---|---|
-| `navy-950` | `#ffffff` | page background, text on black buttons |
-| `navy-900` | `#fafafa` | section tint |
-| `navy-800` | `#f5f5f5` | cards, bubbles, input container |
-| `navy-700` | `#e5e5e5` | borders |
-| `navy-600` | `#d4d4d4` | user bubble, strong borders |
-| `navy-500` | `#a3a3a3` | disabled ink |
-| `gold-400` | `#171717` | **primary action** (black buttons, active tab) |
-| `gold-300` | `#2e2e2e` | primary hover |
-| `gold-500` | `#404040` | secondary ink, icon accents |
-| `gold-600` | `#525252` | tertiary ink |
-| `legal.text` | `#0a0a0a` | body text |
-| `legal.muted` | `#262626` | secondary text (kept near-black on purpose) |
+| `navy-950` | `#ffffff` | white cards, text on navy buttons |
+| `navy-900` | `#f8fafc` | page background (slate-50) |
+| `navy-800` | `#f1f5f9` | tinted surfaces, input container |
+| `navy-700` | `#e2e8f0` | borders |
+| `navy-600` | `#cbd5e1` | strong borders, stop button |
+| `navy-500` | `#94a3b8` | disabled ink |
+| `gold-400` | `#1e3a8a` | **primary** — navy buttons, active tab, headings, icons |
+| `gold-300` | `#2d4da8` | primary hover |
+| `gold-500` | `#2c4a9e` | secondary navy ink (§ marks, markers) |
+| `gold-600` | `#16306e` | darkest navy |
+| `gold-100` | `#e0e7ff` | navy tint — icon chips, user bubble |
+| `accent-600` | `#b45309` | **amber CTA** |
+| `accent-500` | `#d97706` | amber hover |
+| `legal.bg` | `#f8fafc` | page background |
+| `legal.text` | `#0f172a` | body text (slate-900) |
+| `legal.muted` | `#475569` | secondary text (slate-600, ≥7:1 on white) |
 
-Pattern for primary buttons: `bg-gold-400 hover:bg-gold-300 text-navy-950`
-(black button, white label). Disabled: `disabled:bg-navy-700 disabled:text-navy-500`.
+Button patterns:
+- Primary (navy): `bg-gold-400 hover:bg-gold-300 text-navy-950`
+- Conversion CTA (amber): `bg-accent-600 hover:bg-accent-500 text-white shadow-sm`
+- Disabled: `disabled:bg-navy-700 disabled:text-navy-500`
+- Cards: `bg-white border border-navy-700 shadow-sm` + hover lift; icon chips
+  `bg-gold-100 text-gold-400`
 
 ## Typography
 
-- **Headings:** Georgia / Times New Roman (`font-serif`) — bold, legal gravitas
-- **Body/UI:** Inter (`font-sans`), loaded from Google Fonts in `index.html`
-- Markdown answers use `prose prose-sm` with serif headings via overrides in
-  `frontend/src/index.css`
+- **Headings:** EB Garamond (`font-serif`, weights 400–700) — warm, bookish,
+  legal gravitas without stiffness
+- **Body/UI:** Lato (`font-sans`, 300/400/700)
+- Both loaded from Google Fonts in `index.html`
+- Markdown answers use `prose prose-sm`; headings render navy EB Garamond via
+  overrides in `frontend/src/index.css`
 
 ## Motion
 

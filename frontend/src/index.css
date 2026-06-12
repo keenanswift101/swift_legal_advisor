@@ -11,11 +11,11 @@
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Lato', 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  color: #0a0a0a;
+  background-color: #f8fafc;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -24,27 +24,27 @@ body {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+  background: #94a3b8;
 }
 
-/* ── Prose overrides for light theme ────────────────────────────────────────── */
+/* ── Prose overrides — Calm Trust ───────────────────────────────────────────── */
 .prose :where(h1, h2, h3, h4, h5):not(:where([class~='not-prose'] *)) {
-  color: #171717;
-  font-family: Georgia, 'Times New Roman', serif;
+  color: #1e3a8a;
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
   margin-top: 1.25em;
   margin-bottom: 0.4em;
 }
 
 .prose :where(blockquote):not(:where([class~='not-prose'] *)) {
-  border-left-color: rgba(64, 64, 64, 0.4);
-  color: #595959;
+  border-left-color: rgba(30, 58, 138, 0.35);
+  color: #475569;
   font-style: italic;
 }
 
@@ -53,34 +53,34 @@ body {
 }
 
 .prose :where(th):not(:where([class~='not-prose'] *)) {
-  color: #171717;
-  border-bottom-color: #d4d4d4;
+  color: #1e3a8a;
+  border-bottom-color: #cbd5e1;
 }
 
 .prose :where(td):not(:where([class~='not-prose'] *)) {
-  border-bottom-color: #e5e5e5;
+  border-bottom-color: #e2e8f0;
 }
 
 .prose :where(hr):not(:where([class~='not-prose'] *)) {
-  border-color: #e5e5e5;
+  border-color: #e2e8f0;
 }
 
 .prose :where(strong):not(:where([class~='not-prose'] *)) {
-  color: #0a0a0a;
-  font-weight: 600;
+  color: #0f172a;
+  font-weight: 700;
 }
 
 .prose :where(code):not(:where([class~='not-prose'] *)) {
-  color: #171717;
-  background: rgba(0, 0, 0, 0.06);
+  color: #1e3a8a;
+  background: rgba(30, 58, 138, 0.06);
   padding: 0.15em 0.35em;
   border-radius: 4px;
   font-size: 0.88em;
 }
 
 .prose :where(a):not(:where([class~='not-prose'] *)) {
-  color: #171717;
-  text-decoration-color: rgba(23, 23, 23, 0.4);
+  color: #1e3a8a;
+  text-decoration-color: rgba(30, 58, 138, 0.4);
 }
 
 /* ── Cursor blink for streaming ─────────────────────────────────────────────── */
@@ -92,8 +92,17 @@ body {
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: #171717;
+  background-color: #1e3a8a;
   margin-left: 2px;
   vertical-align: text-bottom;
   animation: blink 0.8s step-end infinite;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

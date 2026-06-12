@@ -44,7 +44,7 @@ const COVERAGE = [
 
 export function LandingPage({ onStart, onOpenGuides }: LandingPageProps) {
   return (
-    <div className="min-h-screen bg-white text-legal-text overflow-y-auto">
+    <div className="min-h-screen bg-legal-bg text-legal-text overflow-y-auto">
       {/* ── Nav ─────────────────────────────────────────────────────────── */}
       <nav className="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
         <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ export function LandingPage({ onStart, onOpenGuides }: LandingPageProps) {
           </button>
           <button
             onClick={() => onStart('chat')}
-            className="text-sm font-semibold bg-gold-400 hover:bg-gold-300 text-navy-950 px-5 py-2 rounded-xl transition-colors"
+            className="text-sm font-bold bg-accent-600 hover:bg-accent-500 text-white px-5 py-2 rounded-xl transition-colors"
           >
             Get started
           </button>
@@ -90,14 +90,14 @@ export function LandingPage({ onStart, onOpenGuides }: LandingPageProps) {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={() => onStart('chat')}
-            className="flex items-center gap-2 bg-gold-400 hover:bg-gold-300 text-navy-950 text-sm font-bold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+            className="flex items-center gap-2 bg-accent-600 hover:bg-accent-500 text-white text-sm font-bold px-7 py-3.5 rounded-xl shadow-sm transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
           >
             Get legal guidance
             <ChevronRightIcon className="w-4 h-4" />
           </button>
           <button
             onClick={() => onStart('draft')}
-            className="flex items-center gap-2 bg-white border border-navy-600 hover:border-gold-400 text-legal-text text-sm font-semibold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+            className="flex items-center gap-2 bg-white border border-navy-600 hover:border-gold-400 text-gold-400 text-sm font-semibold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 w-full sm:w-auto justify-center"
           >
             <FileTextIcon className="w-4 h-4" />
             Draft a document
@@ -114,9 +114,9 @@ export function LandingPage({ onStart, onOpenGuides }: LandingPageProps) {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="bg-navy-900 border border-navy-700 rounded-2xl p-6 text-left"
+              className="bg-white border border-navy-700 rounded-2xl p-6 text-left shadow-sm"
             >
-              <span className="w-10 h-10 rounded-xl bg-white border border-navy-700 text-gold-400 flex items-center justify-center mb-4">
+              <span className="w-10 h-10 rounded-xl bg-gold-100 text-gold-400 flex items-center justify-center mb-4">
                 <f.icon className="w-5 h-5" />
               </span>
               <h3 className="font-serif text-lg font-bold mb-1.5">{f.title}</h3>
@@ -127,7 +127,7 @@ export function LandingPage({ onStart, onOpenGuides }: LandingPageProps) {
       </section>
 
       {/* ── Coverage ────────────────────────────────────────────────────── */}
-      <section className="border-t border-navy-700 bg-navy-900">
+      <section className="border-t border-navy-700 bg-white">
         <div className="max-w-5xl mx-auto px-6 py-14">
           <h2 className="font-serif text-2xl font-bold text-center mb-2">
             Help with everyday legal problems
@@ -149,7 +149,7 @@ export function LandingPage({ onStart, onOpenGuides }: LandingPageProps) {
           <div className="text-center mt-10">
             <button
               onClick={() => onStart('chat')}
-              className="inline-flex items-center gap-2 bg-gold-400 hover:bg-gold-300 text-navy-950 text-sm font-bold px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-500 text-white text-sm font-bold px-7 py-3.5 rounded-xl shadow-sm transition-all hover:-translate-y-0.5"
             >
               Start now — it&rsquo;s free
               <ChevronRightIcon className="w-4 h-4" />
